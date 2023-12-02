@@ -279,6 +279,12 @@ class PymunkPhysicsEngine:
             raise PymunkException("Tried to set a rotation, but this physics object has no 'body' set.")
         physics_object.body.angle = math.radians(rotation)
 
+    def set_rotational_velocity(self, sprite: Sprite, impluse: float):
+        physics_object = self.get_physics_object(sprite)
+        if physics_object.body is None:
+            raise PymunkException("Tried to set a rotation velocity, but this physics object has no 'body' set.")
+        physics_object.body.angular_velocity = impluse
+
     def set_velocity(self, sprite: Sprite, velocity: Tuple[float, float]):
         """ Apply an impulse force on a sprite """
         physics_object = self.get_physics_object(sprite)

@@ -1,5 +1,6 @@
 import pytest
 import arcade
+import math
 
 
 def test_pymunk():
@@ -21,6 +22,13 @@ def test_pymunk():
 
     physics_engine.step(1.0)
     assert(my_sprite.center_y == -300.0)
+
+    physics_engine.set_rotational_velocity(my_sprite, math.pi)
+    physics_engine.step(1.0)
+    assert(my_sprite.angle == -180.0)
+
+    physics_engine.step(1.0)
+    assert(my_sprite.angle == -360.0)
 
 
 @pytest.mark.parametrize("moment_of_inertia_arg_name",
