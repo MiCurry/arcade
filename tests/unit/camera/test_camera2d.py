@@ -130,3 +130,15 @@ def test_camera2d_from_camera_data_uses_render_target_size(window: Window, width
     assert ortho_camera.viewport_right == width
     assert ortho_camera.viewport_bottom == 0
     assert ortho_camera.viewport_top == height
+
+
+def test_camera2d_duplication(window: Window, width, height):
+    camera_1 = Camera2D()
+    camera_2 = Camera2D.from_camera_data(camera_1.view_data, camera_1.projection_data)
+
+    assert camera_1.left == camera_2.left
+
+    # Change Camera 2 data and assert they are different
+    camera_2.left = 424242
+
+    assert camera_1.left != camera_2.left
