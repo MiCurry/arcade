@@ -292,9 +292,9 @@ class PymunkPhysicsEngine:
                               begin_handler: Optional[Callable] = None,
                               pre_handler: Optional[Callable] = None,
                               post_handler: Optional[Callable] = None,
-                              separate_handler: Optional[Callable] = None):
+                              separate_handler: Optional[Callable] = None,
+                              collision_data: Optional[Dict] = None):
         """ Add code to handle collisions between objects. """
-
         if first_type not in self.collision_types:
             LOG.debug(f"Adding new collision type of {first_type}.")
             self.collision_types.append(first_type)
@@ -336,6 +336,9 @@ class PymunkPhysicsEngine:
             h.pre_solve = _f3
         if separate_handler:
             h.separate = _f4
+
+        for key, value in collision_data.items():
+            h.data[key] = value
 
     def resync_sprites(self):
         """
