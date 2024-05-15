@@ -245,6 +245,9 @@ class UIManager(EventDispatcher):
 
         self._requires_render = False
 
+    def is_enabled(self):
+        return self._enabled
+
     def enable(self) -> None:
         """
         Registers handler functions (`on_...`) to :py:attr:`arcade.gui.UIElement`
