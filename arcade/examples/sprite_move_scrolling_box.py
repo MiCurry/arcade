@@ -102,7 +102,7 @@ class MyGame(arcade.Window):
         self.camera_gui.use()
 
         # Draw the GUI
-        arcade.draw_rectangle_filled(self.width // 2, 20, self.width, 40, arcade.color.ALMOND)
+        arcade.draw_rect_filled(arcade.rect.XYWH(self.width // 2, 20, self.width, 40), arcade.color.ALMOND)
         text = f"Scroll value: ({self.camera_sprites.position[0]:5.1f}, {self.camera_sprites.position[1]:5.1f})"
         arcade.draw_text(text, 10, 10, arcade.color.BLACK_BEAN, 20)
 
@@ -178,23 +178,26 @@ class MyGame(arcade.Window):
 
         _target_x, _target_y = self.camera_sprites.position
 
+        top_left = self.camera_sprites.top_left
+        bottom_right = self.camera_sprites.bottom_right
+
         # Scroll left
-        left_boundary = self.camera_sprites.left + VIEWPORT_MARGIN
+        left_boundary = top_left[0] + VIEWPORT_MARGIN
         if self.player_sprite.left < left_boundary:
             _target_x -= left_boundary - self.player_sprite.left
 
         # Scroll right
-        right_boundary = self.camera_sprites.right - VIEWPORT_MARGIN
+        right_boundary = bottom_right[0] - VIEWPORT_MARGIN
         if self.player_sprite.right > right_boundary:
             _target_x += self.player_sprite.right - right_boundary
 
         # Scroll up
-        top_boundary = self.camera_sprites.top - VIEWPORT_MARGIN
+        top_boundary = top_left[1] - VIEWPORT_MARGIN
         if self.player_sprite.top > top_boundary:
             _target_y += self.player_sprite.top - top_boundary
 
         # Scroll down
-        bottom_boundary = self.camera_sprites.bottom + VIEWPORT_MARGIN
+        bottom_boundary = bottom_right[1] + VIEWPORT_MARGIN
         if self.player_sprite.bottom < bottom_boundary:
             _target_y -= bottom_boundary - self.player_sprite.bottom
 
